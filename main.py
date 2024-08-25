@@ -64,4 +64,13 @@ INSERT INTO orders (order_id, customer_id, product_id, quantity, order_date) VAL
     (205, 4, 103, 5, "27.09.1945")
 ])
 
-conn.commit()
+cursor.execute('''
+SELECT  
+    SUM(products.price * orders.quantity)
+FROM 
+    orders JOIN products ON orders.product_id = products.product_id  
+''')
+
+result = cursor.fetchone()
+
+print(f"Загальна сума: {result}")
